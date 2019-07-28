@@ -1,0 +1,45 @@
+node{
+    
+   
+    
+     stage('Code Checkout: Final Assignment')
+    {
+        git credentialsId: 'prasadpaimaroor', url: 'https://github.com/prasadpaimaroor/Final-Assignment.git'
+    }
+   
+   stage('Build SpringBoot app')
+   {      
+       sh "mvn clean install -f backend"
+       
+   }
+
+   stage('Archive Artificats')
+   {
+
+   archiveArtifacts "backend/target/*.war"
+   step([$class: 'JUnitResultArchiver', testResults: 'backend/target/surefire-reports/*.xml'])
+   }
+
+   stage('Email: Build Summary Report')
+   { 
+       emailext attachLog: true, attachmentsPattern: 'backend/target/surefire-report/*.*.*.*.txt', body: '''Hi FSD Final Assignment,
+       <br/>
+       Build for the $PROJECT_NAME  has been triggered. PFB below the details of the same.
+       <br/>
+       The build logs have been attached with the email for your reference.
+       <br/>
+       <ul>  
+        <li>Build Id: # $BUILD_NUMBER </li>
+        <li>Build Number: $BUILD_STATUS</li>
+       </ul>
+       <br/> 
+        For more detailed results access the same via: <strong> $BUILD_URL </strong>
+        <br/>
+        Regards,
+        <br/>
+        Prasad Pai - Jenkins Admin ''', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'fsduserpp@gmail.com'
+       
+   }
+   
+   
+}

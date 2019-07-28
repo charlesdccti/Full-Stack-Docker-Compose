@@ -1,0 +1,108 @@
+.column {
+    box-sizing: border-box;
+  }
+  
+  .column {
+    width: 30%;
+    padding: 5px;
+    height: 120px;
+    margin:5px;
+    background:#eceff1;
+    color:white;
+    border:1px ;
+
+  }
+  
+  #sectionId{
+    text-align:left;
+    border: 1px solid black;
+    background:#F0FFF0;
+    width:100%;
+  }
+
+  thead td 	    {
+    border: 3px solid #dddddd;
+    background-color:#0080ff;
+    color:white;
+    font-size: 20px;
+   }
+  
+  
+td 	   	{
+       border: 3px solid #dddddd;
+       text-align: left;
+       padding: 8px;
+       color:black;    
+   }
+
+  
+  td:nth-child(odd) {
+    background: #ffbf00;
+    color:black;
+  }
+  
+  
+  td:nth-child(even) {
+    background: rgb(180, 105, 70);
+    color: white;
+  }
+  
+  th{
+
+    font-weight:bold;
+    font-family: 'Courier New', Courier, monospace;
+    font-size:22;
+    
+    }
+
+  .employeeId{
+   font-weight: bold;  
+   font-style: italic;
+   font-size: 28px;
+  }
+
+  .container{
+    width:100%;
+  }
+  
+  form{
+    padding-left: 20%;
+  }
+ 
+  #collapseButton{
+    width:100%;
+  }
+
+  #buttonPanel{
+    margin-left:20%;
+  }
+
+  #resetUserForm{
+    width:20%;
+  }
+
+ 
+
+  .hrTag{
+    border-top: 1px solid #d5d5d5;
+    width:100%;
+    margin-top:1.5rem;
+    margin-bottom:1.5rem;
+  }
+  
+  .modal-lg{
+    max-width:80%;
+  }
+  
+  #reduceColumn{
+    width:20%;
+  }
+
+  .btnmargin
+  {
+    margin-left:10%;
+    margin-right:10%;
+  }
+
+
+ 

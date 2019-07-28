@@ -1,0 +1,252 @@
+
+<html>
+    <br><br>   
+<body class ="container" id="sectionId">
+<section  class ="container">
+<form class="form-horizontal"  style="text-align:left;width:100%" [formGroup]="addProjectForm" (ngSubmit)="formHandler()" novalidate> 
+  
+  <div class="form-group">  
+      <input type="string" formControlName="projectId" class="form-control" id="projectId" hidden>
+  </div>
+
+  <div class="form-group">  
+              <label class="control-label col-sm-2" for="project"><strong>Project:*</strong></label>
+              <div class="col-6" [ngClass]="{'has-error': addProjectForm.controls.project.invalid && addProjectForm.controls.project.dirty,
+                                      'has-success': addProjectForm.controls.project.valid  && addProjectForm.controls.project.dirty }"  >
+              <input type="string" formControlName="project" class="form-control" id="project" placeholder="Enter the Project">
+              </div>  
+              <div class="alert-danger col-sm-4" *ngIf="addProjectForm.controls.project.invalid && addProjectForm.controls.project.dirty"> 
+                  Project can contain only Alphanumeric Value 
+              </div> 
+  </div>   
+  
+  <br>
+  
+  <div class="form-group row">  
+     
+    <div class="col-4">
+        <div class="input-group input-group-sm">
+            <input type="checkbox" id="enableCheckbox" value="0" (change)="toggleCheckBoxValue()"  [checked]="!isDisabled"/>
+            <label class="checkbox-inline" id="enableCheckbox" for="enableCheckbox">&nbsp; <strong>Set Start Date and End Date</strong></label>
+          </div>
+      </div>
+    <div class="col-4"  [ngClass]="{'has-error': addProjectForm.controls.startDate.invalid && addProjectForm.controls.startDate.dirty,
+                              'has-success': addProjectForm.controls.startDate.valid  && addProjectForm.controls.startDate.dirty }"  >
+      <input type="text" onkeydown="return false" bsDatepicker formControlName="startDate" class="form-control" id="startDate" placeholder="Enter Start Date">
+  </div> 
+  <div class="col-4" [ngClass]="{'has-error': addProjectForm.controls.endDate.invalid && addProjectForm.controls.endDate.dirty,
+                          'has-success': addProjectForm.controls.endDate.valid  && addProjectForm.controls.endDate.dirty }"  >
+  <input type="text" onkeydown="return false" bsDatepicker formControlName="endDate" class="form-control" id="endDate" placeholder="Enter end Date">
+  </div>  
+</div>   
+
+  <br>
+  <div class="form-group">  
+                <label class="control-label col-sm-2" for="priority"><strong>Priority:*</strong></label>
+                <div class="col-6" [ngClass]="{'has-error': addProjectForm.controls.priority.invalid && addProjectForm.controls.priority.dirty,
+                                        'has-success': addProjectForm.controls.priority.valid  && addProjectForm.controls.priority.dirty }"  >
+                <strong><output id = "put"></output></strong>
+                <input type="range"  min="0" max="30" value="0" step ="1" #priority (change)="setOutput(priority)" formControlName="priority" class="form-control" id="priority">
+            </div>  
+        </div>   
+
+  <br>       
+  <label class="control-label col-2" for="manager"><strong>Manager:</strong></label>      
+  <div class="form-group row">  
+      <div class ="col-6">
+      <input type="string" formControlName="manager" class="form-control" id="manager" placeholder="Choose the Manager" disabled [(ngModel)]="popupManager">
+     </div>
+     <div class="col-6">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#userModal">Search </button>  
+    </div> 
+  </div>
+  <br> 
+  
+<br>
+<div class="col-sm-offset-3 col-sm-2 col-md-6">
+   <button type="submit" class = "btn btn-success" [disabled]="addProjectForm.status =='INVALID'" >                       
+    {{buttonValue}}</button>
+    &nbsp;
+   <button type="reset" (click)="resetForm()" class="btn btn-danger">Reset</button>
+  </div>
+</form>
+
+<!-- Modal -->
+<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="userModalLabel">Add Manager</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            
+            <hr class="hrTag">
+            <button type="button" class="btn btn-secondary" id = "collapseButton" data-toggle="collapse" data-target="#searchUserForm"><strong>Click Me for Search User !!!</strong></button>
+            <div id="searchUserForm" class="collapse"> 
+               <br>
+                <form class="form-vertical">
+                  <div class="form-group row" >
+                  <div class = "col-8">    
+                  <label class="control-label" for="firstNameSearch"><strong>First Name :</strong></label>
+                  <input type="text" class="form-control" id="firstNameSearch" name ="firstNameSearch" placeholder="Enter First Name of the user to be Searched" [(ngModel)]="firstNameSearch"> 
+                  </div>  
+                  </div>  
+            
+                  <div class="form-group row" > 
+                  <div class = "col-8">  
+                  <label class="control-label" for="lastNameSearch"><strong>Last Name :</strong></label>   
+                  <input type="text" class="form-control" id = "lastNameSearch" name ="lastNameSearch" placeholder="Enter Last Name of the user to be Searched" [(ngModel)]="lastNameSearch"> 
+                  </div>
+                  </div>
+            
+                  <div class="form-group row" > 
+                   <div class = "col-8">    
+                    <label class="control-label " for="employeeIdSearch"><strong>Employee Id:</strong></label>
+                    <input type="text"  class="form-control" id="employeeIdSearch" name ="employeeIdSearch" placeholder="Enter Employee Id of the user to be Searched" [(ngModel)]="employeeIdSearch">  
+                  </div>
+                  </div>
+                  
+                  <br>
+            
+                  <div class="form-group row" > 
+                      <div class = "col-sm-12 col-md-8 col-6"> 
+                     <input type="reset" class="btn btn-primary"  value="Reset">
+                      </div> 
+                    </div>
+                </form>
+            <br>
+            </div>
+            <hr class="hrTag">
+
+            <table class="table-responsive table table-striped table-hover table-condensed table-bordered">
+            <thead>
+                <tr>
+                    <td></td>
+                    <td>First Name</td>
+                    <td>Last Name</td> 
+                    <td>Employee Id</td> 
+                </tr>
+             </thead>
+             <tr *ngFor="let result of dataUser| user : firstNameSearch : lastNameSearch : employeeIdSearch">
+                <td>
+                    <button class ="btn btn-success" (click)="selectManager(result)">Select</button>
+                </td>
+                <td>{{result.firstName}}</td>  
+                <td>{{result.lastName}}</td>  
+                <td>{{result.employeeId}}</td>  
+              </tr>
+              </table>            
+        </div>
+      </div>
+    </div>
+    </div>
+<br>
+
+
+
+<hr class="hrTag">
+<button type="button" class="btn btn-secondary" id = "collapseButton" data-toggle="collapse" data-target="#searchProjectform"><strong>Click Me for Search Project!!!</strong></button>
+<br>
+<div id="searchProjectform" class="collapse">
+<form class="form-horizontal row" id="searchProjectform">
+
+<div class = "col-8">     
+<div class="form-group" >  
+<label class="control-label" for="projectSearch"> <strong>Project: </strong> </label>
+<input type="text" class="form-control" id="projectSearch" name ="projectSearch" placeholder="Enter project to be Searched" [(ngModel)]="projectSearch"> 
+</div>  
+</div>
+
+<div class = "col-8">     
+<div class="form-group" > 
+  <label class="control-label" for="project2"><strong>Priority From:</strong></label>
+  <input type="text"  class="form-control" id="project2" name ="project2" placeholder="Priority From" [(ngModel)]="priorityFrom"> 
+  <label class="control-label" for="project3"><strong>Priority To:</strong></label>
+  <input type="text"  class="form-control" id="project2" name ="project3" placeholder="Priority To" [(ngModel)]="priorityTo"> 
+</div>
+</div>
+
+<div class = "col-8">    
+<div class="form-group" > 
+    <label class="control-label col-6" for="project5"><strong>Start Date :</strong></label>
+  <input type="text" bsDatepicker class="form-control" id ="project5" name ="project5" placeholder="Enter Start Date" [(ngModel)]="startDateSearch">
+</div> 
+</div>
+
+<div class = "col-8">    
+<div class="form-group" > 
+<label class="control-label" for="project6"><strong>End Date :</strong></label> 
+<input type="text" bsDatepicker class="form-control" name ="project6" placeholder="Enter End Date" [(ngModel)]="endDateSearch">
+</div>
+</div>
+
+<br>
+<div class = "col-8"> 
+<div class="form-group" > 
+<input type="reset" class="btn btn-primary form-control"  value="Reset">
+</div>
+</div>
+</form>
+</div>
+
+<hr>
+<div class="row">
+    <div class = "col-1">    
+     <label class="control-label"><strong>Sort By:</strong></label>
+    </div>
+<div class = "col-3">  
+<button class="btn btn-secondary" (click)="sortOrderFilter('startDate')">Start Date</button> &nbsp;
+</div>  
+<div class = "col-3">  
+<button class="btn btn-secondary" (click)="sortOrderFilter('endDate')">End Date</button> &nbsp;
+</div>
+<div class ="col-2">
+<button class="btn btn-secondary" (click)="sortOrderFilter('priority')">Priority</button> &nbsp;
+</div>  
+<div class ="col-2">
+<button class="btn btn-secondary" (click)="sortOrderFilter('taskCompleted')">Completed</button> &nbsp;
+</div>  
+</div>
+<hr>
+</section>
+
+<article>
+  <hr class="hrTag">
+  <div *ngIf = "(displayData | display : projectSearch : priorityFrom : priorityTo :startDateSearch: endDateSearch) ?.length == 0">
+  <div align ="center"><font color ="red" weight="bold">No Records Found</font></div>   
+  </div>
+  <ul *ngFor="let result of displayData | display : projectSearch : priorityFromSearch : priorityToSearch :startDateSearch: endDateSearch | order : innerOrder" class="list-group">
+      <li class="list-group-item">
+      <div class="row justify-content-center">
+       <div class="column col-6">  
+        <p class = "employeeId">
+         Project:  {{result.project.project}} 
+        </p>
+        <p class = "name">
+          <strong> Number of Tasks:</strong>{{result.totalTask}}  &nbsp; <strong>Completed:</strong>{{result.taskCompleted}} 
+      </p> 
+      </div>
+      <div class="column col-2">  
+      <p class = "name">
+        <strong> priority:</strong><br>{{result.project.priority}}  
+    </p> 
+  </div>
+      
+      <div class="column col-2" id="reduceColumn">
+              <button type="button" class="btn btn-primary" (click)="editProject(result)">Update</button> 
+              <br><br>
+              <button type="button" class="btn btn-danger"   (click)="suspendProject(result)"> Suspend </button>
+      </div> 
+   
+      </div>
+    </li>
+  </ul>
+  <br>
+  </article>
+</body>
+{{addProjectForm.controls.value  | json}}
+<br>
+</html>

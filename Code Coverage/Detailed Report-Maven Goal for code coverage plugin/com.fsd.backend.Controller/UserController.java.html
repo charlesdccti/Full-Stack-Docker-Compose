@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>UserController.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">backend</a> &gt; <a href="index.source.html" class="el_package">com.fsd.backend.Controller</a> &gt; <span class="el_source">UserController.java</span></div><h1>UserController.java</h1><pre class="source lang-java linenums">
+package com.fsd.backend.Controller;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+
+import com.fsd.backend.Entity.User;
+import com.fsd.backend.Service.UserService;
+
+
+// TODO: Auto-generated Javadoc
+/**
+ * The Class UserController.
+ */
+/**
+ * @author paiprasadm
+ *
+ */
+@RestController
+@CrossOrigin(origins = &quot;*&quot;)
+@RequestMapping(&quot;/taskManager/userAction&quot;)
+<span class="fc" id="L36">public class UserController {</span>
+
+		
+/** The log. */
+<span class="fc" id="L40">private final Logger log = LoggerFactory.getLogger(UserController.class);</span>
+	
+	/** The user service. */
+	@Autowired
+	private UserService userService;
+	
+	/**
+	 * Adds the user.
+	 *
+	 * @param user the user
+	 * @return the user
+	 * @throws Exception the exception
+	 */
+	@PostMapping(&quot;/addUser&quot;)
+	public User addUser(@RequestBody User user)throws Exception
+	{
+<span class="fc" id="L56">		log.debug(&quot;===========================================&quot;);</span>
+<span class="fc" id="L57">		log.debug(&quot;Inside Class Name: UserController &quot;);</span>
+<span class="fc" id="L58">		log.debug(&quot;Inside Method Name: addUser &quot;);</span>
+<span class="fc" id="L59">		log.debug(&quot;User Details to be added:&quot; + user.toString());</span>
+<span class="fc" id="L60">		log.debug(&quot;===========================================&quot;);</span>
+<span class="fc" id="L61">		userService.addUser(user);		</span>
+<span class="fc" id="L62">		return user;</span>
+	}
+	
+	/**
+	 * Gets the all user.
+	 *
+	 * @return the all user
+	 * @throws Exception the exception
+	 */
+	@GetMapping(&quot;/getAllUser&quot;)
+	public List&lt;User&gt; getAllUser() throws Exception
+	{
+<span class="fc" id="L74">		List&lt;User&gt; userList = null;</span>
+<span class="fc" id="L75">		log.debug(&quot;===========================================&quot;);</span>
+<span class="fc" id="L76">		log.debug(&quot;Inside Class Name: UserController &quot;);</span>
+<span class="fc" id="L77">		log.debug(&quot;Inside Method Name: getAllUser &quot;);</span>
+<span class="fc" id="L78">		log.debug(&quot;===========================================&quot;);</span>
+<span class="fc" id="L79">		userList=userService.getAllUsers();</span>
+<span class="fc" id="L80">		return  userList;</span>
+	}
+	
+	/**
+	 * Delete user.
+	 *
+	 * @param user the user
+	 * @return the user
+	 * @throws Exception the exception
+	 */
+	@PostMapping(&quot;/deleteUser&quot;)
+	public User deleteUser(@RequestBody User user) throws Exception
+	{
+<span class="fc" id="L93">		User returned = null;</span>
+	
+<span class="fc" id="L95">		log.debug(&quot;===========================================&quot;);</span>
+<span class="fc" id="L96">		log.debug(&quot;Inside Class Name: UserController &quot;);</span>
+<span class="fc" id="L97">		log.debug(&quot;Inside Method Name: deleteUser &quot;);</span>
+<span class="fc" id="L98">		log.debug(&quot;===========================================&quot;);</span>
+<span class="fc" id="L99">		returned=userService.deleteUser(user);</span>
+<span class="fc" id="L100">		return  returned;</span>
+	}
+	
+	
+	/**
+	 * Gets the user by id.
+	 *
+	 * @param userId the user id
+	 * @return the user by id
+	 * @throws Exception the exception
+	 */
+	@RequestMapping(&quot;/getUserById/{userId}&quot;)
+	public User getUserById(@PathVariable(name=&quot;userId&quot;)String userId ) throws Exception
+	{
+<span class="fc" id="L114">		log.debug(&quot;===========================================&quot;);</span>
+<span class="fc" id="L115">		log.debug(&quot;Inside Class Name: UserController &quot;);</span>
+<span class="fc" id="L116">		log.debug(&quot;Inside Method Name: getUserById &quot;);</span>
+<span class="fc" id="L117">		log.debug(&quot;User Id Searched for: &quot; + userId);</span>
+<span class="fc" id="L118">		log.debug(&quot;===========================================&quot;);</span>
+<span class="fc" id="L119">		User user = null;</span>
+<span class="fc" id="L120">		user = userService.findUserById(Long.parseLong(userId));</span>
+<span class="fc" id="L121">		return user;</span>
+	}
+    
+	/**
+	 * Update user.
+	 *
+	 * @param user the user
+	 * @return the user
+	 * @throws Exception the exception
+	 */
+	@PostMapping(&quot;/updateUser&quot;)
+	public User updateUser(@RequestBody User user) throws Exception  {
+
+<span class="fc" id="L134">		log.debug(&quot;===========================================&quot;);</span>
+<span class="fc" id="L135">		log.debug(&quot;Inside Class Name: UserController&quot;);</span>
+<span class="fc" id="L136">		log.debug(&quot;Inside Method Name: updateUser &quot;);</span>
+<span class="fc" id="L137">		log.debug(&quot;===========================================&quot;);</span>
+<span class="fc" id="L138">	    userService.addUser(user);</span>
+<span class="fc" id="L139">		return  user;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

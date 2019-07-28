@@ -1,0 +1,133 @@
+<html>
+    <br><br>   
+<body class ="container" id="sectionId">
+<section  class ="container">
+    <form class="form-horizontal" [formGroup]="addUserForm" (ngSubmit)="formHandler()" novalidate> 
+  
+    <div class="form-group">  
+        <input type="string" formControlName="userId" class="form-control" id="userId" hidden>
+    </div>
+
+    <div class="form-group">  
+                <label class="control-label col-sm-5" for="firstName">First Name*</label>
+                <div class="col-sm-5" [ngClass]="{'has-error': addUserForm.controls.firstName.invalid && addUserForm.controls.firstName.dirty,
+                                        'has-success': addUserForm.controls.firstName.valid  && addUserForm.controls.firstName.dirty }"  >
+                <input type="string" formControlName="firstName" class="form-control" id="firstName" placeholder="Enter the First Name">
+                </div>  
+                <div class="alert-danger col-sm-4" *ngIf="addUserForm.controls.firstName.invalid && addUserForm.controls.firstName.dirty"> 
+                    First Name can contain only Alphanumeric Value 
+                </div> 
+    </div>   
+    <div class="form-group">  
+        <label class="control-label col-sm-5" for="lastName">Last Name*</label>
+        <div class="col-sm-5" [ngClass]="{'has-error': addUserForm.controls.lastName.invalid && addUserForm.controls.lastName.dirty,
+                                'has-success': addUserForm.controls.lastName.valid  && addUserForm.controls.lastName.dirty }"  >
+        <input type="string" formControlName="lastName" class="form-control" id="lastName" placeholder="Enter the Last Name">
+        </div>  
+        <div class="alert-danger col-sm-4" *ngIf="addUserForm.controls.lastName.invalid && addUserForm.controls.lastName.dirty"> 
+            Last Name can contain only Alphanumeric Value 
+        </div> 
+    </div>
+    
+    <div class="form-group">  
+        <label class="control-label col-sm-5" for="employeeId">Employee Id*</label>
+        <div class="col-sm-5" [ngClass]="{'has-error': addUserForm.controls.employeeId.invalid && addUserForm.controls.employeeId.dirty,
+                                'has-success': addUserForm.controls.employeeId.valid  && addUserForm.controls.employeeId.dirty }"  >
+        <input type="string" formControlName="employeeId" class="form-control" id="employeeId" placeholder="Enter the Employee Id">
+        </div>  
+        <div class="alert-danger col-sm-4" *ngIf="addUserForm.controls.employeeId.invalid && addUserForm.controls.employeeId.dirty"> 
+           Employee Id can contain only Alphanumeric Value 
+        </div> 
+</div>   
+<br>
+<div class="col-sm-offset-3 col-sm-2 col-md-6">
+     <button type="submit" class = "btn btn-success" [disabled]="addUserForm.status =='INVALID'" >                       
+      {{buttonValue}}</button>
+      &nbsp;
+     <button type="reset" (click)="resetForm()" class="btn btn-danger">Reset</button>
+    </div>
+</form>
+<br>
+<hr class="hrTag">
+<button type="button" class="btn btn-secondary" id = "collapseButton" data-toggle="collapse" data-target="#searchUserForm"><strong>Click Me for Search User !!!</strong></button>
+<div id="searchUserForm" class="collapse"> 
+   <br>
+    <form class="form-vertical">
+      <div class="form-group row" >
+      <div class = "col-7">    
+      <label class="control-label" for="firstNameSearch"><strong>First Name :</strong></label>
+      <input type="text" class="form-control" id="firstNameSearch" name ="firstNameSearch" placeholder="Enter First Name of the user to be Searched" [(ngModel)]="firstNameSearch"> 
+      </div>  
+      </div>  
+
+      <div class="form-group row" > 
+      <div class = "col-7">  
+      <label class="control-label col-4" for="lastNameSearch"><strong>Last Name :* </strong></label>   
+      <input type="text" class="form-control" id = "lastNameSearch" name ="lastNameSearch" placeholder="Enter Last Name of the user to be Searched" [(ngModel)]="lastNameSearch"> 
+      </div>
+      </div>
+
+      <div class="form-group row" > 
+       <div class = "col-7">    
+        <label class="control-label col-4 " for="employeeIdSearch"><strong>Employee Id:*</strong></label>
+        <input type="text"  class="form-control inputtest" id="employeeIdSearch" name ="employeeIdSearch" placeholder="Enter Employee Id of the user to be Searched" [(ngModel)]="employeeIdSearch">  
+      </div>
+      </div>
+      
+      <br>
+
+      <div class="form-group" > 
+         <input type="reset" id ="resetUserForm" class="btn btn-primary form-control"  value="Reset">
+      </div>
+    </form>
+<br>
+</div>
+<hr class="hrTag">
+<div class="row">
+<div class = "col-4">     
+<input type="text" class="form-control" name ="employeeIdSearch2" placeholder="Employee Id Search" [(ngModel)]="employeeIdSearch">    
+</div>
+<div class = "col-1">  
+ <strong>Sort By:</strong>
+</div>   
+<div class = "col-2">  
+<button class="btn btn-secondary" (click)="sortFilter('firstName')">First Name</button> &nbsp;
+</div>  
+<div class = "col-2">  
+<button class="btn btn-secondary" (click)="sortFilter('lastName')">Last Name</button> &nbsp;
+</div>
+<div class ="col-2">
+<button class="btn btn-secondary" (click)="sortFilter('employeeId')">Employee Id</button> &nbsp;
+</div>  
+</div>
+</section> 
+<article>
+<hr class="hrTag">
+<div *ngIf = "(data| user : firstNameSearch : lastNameSearch : employeeIdSearch) ?.length == 0">
+<div align ="center"><font color ="red" weight="bold">No Records Found</font></div>   
+</div>
+<ul *ngFor="let result of data| user : firstNameSearch : lastNameSearch : employeeIdSearch | orderUser : order" class="list-group">
+    <li class="list-group-item">
+    <div class="row justify-content-center">
+     <div class="column col-7">        
+      <p class = "employeeId">
+        Employee Id  :  {{result.employeeId}} 
+      </p>
+
+      <p class = "name">
+        <strong> First Name:</strong>{{result.firstName}}  &nbsp; <strong>Last Name:</strong>{{result.lastName}} 
+    </p>         
+    </div>
+    <div class="column col-2" id="reduceColumn">
+            <button type="button" class="btn btn-primary" (click)="editUser(result)">Edit</button> 
+            <br><br>
+            <button type="button" class="btn btn-danger"   (click)="deleteUser(result)"> Delete </button>
+    </div> 
+    </div>
+    </li>  
+</ul>
+</article>
+</body>
+<br>
+{{addUserForm.controls.value  | json}}
+</html>

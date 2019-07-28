@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Task.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">backend</a> &gt; <a href="index.source.html" class="el_package">com.fsd.backend.Entity</a> &gt; <span class="el_source">Task.java</span></div><h1>Task.java</h1><pre class="source lang-java linenums">/*
+ * 
+ */
+package com.fsd.backend.Entity;
+
+import java.io.Serializable;
+import java.time.LocalDate;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Task.
+ */
+/**
+ * @author paiprasadm
+ *
+ */
+@Entity 
+public class Task implements Serializable{
+
+	/** The task id. */
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@NotNull
+	private long taskId;
+	
+	/** The task. */
+	@NotNull
+	private String task;
+	
+	/** The priority. */
+	@NotNull
+	private int priority;
+	
+	/** The start date. */
+	@DateTimeFormat(pattern = &quot;yyyy-MM-dd&quot; )
+	@NotNull
+	private LocalDate startDate;
+	
+	/** The end date. */
+	@DateTimeFormat(pattern = &quot;yyyy-MM-dd&quot; )
+	@NotNull
+	private LocalDate endDate;
+	
+	
+	/** The parent task. */
+	@OneToOne(cascade = CascadeType.ALL, optional = false)
+	private ParentTask parentTask;
+
+	/** The project. */
+	@ManyToOne(cascade = CascadeType.MERGE, optional = false)
+	private Project project;
+	
+	/** The user. */
+	@ManyToOne(cascade = CascadeType.MERGE, optional = false)	
+	private User user;
+	
+	/** The status. */
+	@NotNull
+	private String status;
+
+	/**
+	 * Instantiates a new task.
+	 */
+<span class="fc" id="L77">	public Task() {</span>
+<span class="fc" id="L78">	}</span>
+
+	/**
+	 * Instantiates a new task.
+	 *
+	 * @param taskId the task id
+	 * @param task the task
+	 * @param priority the priority
+	 * @param startDate the start date
+	 * @param endDate the end date
+	 * @param parentTask the parent task
+	 * @param project the project
+	 * @param user the user
+	 * @param status the status
+	 */
+	public Task(@NotNull long taskId, @NotNull String task, @NotNull int priority, @NotNull LocalDate startDate,
+			@NotNull LocalDate endDate, ParentTask parentTask, Project project,User user, @NotNull String status) {
+<span class="fc" id="L95">		super();</span>
+<span class="fc" id="L96">		this.taskId = taskId;</span>
+<span class="fc" id="L97">		this.task = task;</span>
+<span class="fc" id="L98">		this.priority = priority;</span>
+<span class="fc" id="L99">		this.startDate = startDate;</span>
+<span class="fc" id="L100">		this.endDate = endDate;</span>
+<span class="fc" id="L101">		this.parentTask = parentTask;</span>
+<span class="fc" id="L102">		this.project = project;</span>
+<span class="fc" id="L103">		this.status = status;</span>
+<span class="fc" id="L104">		this.user = user;</span>
+<span class="fc" id="L105">	}</span>
+
+
+	/**
+	 * Gets the user.
+	 *
+	 * @return the user
+	 */
+	public User getUser() {
+<span class="fc" id="L114">		return user;</span>
+	}
+
+
+	/**
+	 * Sets the user.
+	 *
+	 * @param user the new user
+	 */
+	public void setUser(User user) {
+<span class="fc" id="L124">		this.user = user;</span>
+<span class="fc" id="L125">	}</span>
+
+
+
+
+	/**
+	 * Gets the project.
+	 *
+	 * @return the project
+	 */
+	public Project getProject() {
+<span class="fc" id="L136">		return project;</span>
+	}
+
+
+	/**
+	 * Sets the project.
+	 *
+	 * @param project the new project
+	 */
+	public void setProject(Project project) {
+<span class="fc" id="L146">		this.project = project;</span>
+<span class="fc" id="L147">	}</span>
+
+
+	/**
+	 * Gets the status.
+	 *
+	 * @return the status
+	 */
+	public String getStatus() {
+<span class="fc" id="L156">		return status;</span>
+	}
+
+
+	/**
+	 * Sets the status.
+	 *
+	 * @param status the new status
+	 */
+	public void setStatus(String status) {
+<span class="fc" id="L166">		this.status = status;</span>
+<span class="fc" id="L167">	}</span>
+
+
+	/**
+	 * Gets the task id.
+	 *
+	 * @return the task id
+	 */
+	public long getTaskId() {
+<span class="fc" id="L176">		return taskId;</span>
+	}
+
+
+	/**
+	 * Sets the task id.
+	 *
+	 * @param taskId
+	 *            the new task id
+	 */
+	public void setTaskId(long taskId) {
+<span class="fc" id="L187">		this.taskId = taskId;</span>
+<span class="fc" id="L188">	}</span>
+
+
+	/**
+	 * Gets the task.
+	 *
+	 * @return the task
+	 */
+	public String getTask() {
+<span class="fc" id="L197">		return task;</span>
+	}
+
+
+	/**
+	 * Sets the task.
+	 *
+	 * @param task
+	 *            the new task
+	 */
+	public void setTask(String task) {
+<span class="fc" id="L208">		this.task = task;</span>
+<span class="fc" id="L209">	}</span>
+
+
+	/**
+	 * Gets the priority.
+	 *
+	 * @return the priority
+	 */
+	public int getPriority() {
+<span class="fc" id="L218">		return priority;</span>
+	}
+
+
+	/**
+	 * Sets the priority.
+	 *
+	 * @param priority
+	 *            the new priority
+	 */
+	public void setPriority(int priority) {
+<span class="fc" id="L229">		this.priority = priority;</span>
+<span class="fc" id="L230">	}</span>
+
+
+	/**
+	 * Gets the start date.
+	 *
+	 * @return the start date
+	 */
+	public LocalDate getStartDate() {
+<span class="fc" id="L239">		return startDate;</span>
+	}
+
+
+	/**
+	 * Sets the start date.
+	 *
+	 * @param startDate
+	 *            the new start date
+	 */
+	public void setStartDate(LocalDate startDate) {
+<span class="fc" id="L250">		this.startDate = startDate;</span>
+<span class="fc" id="L251">	}</span>
+
+
+	/**
+	 * Gets the end date.
+	 *
+	 * @return the end date
+	 */
+	public LocalDate getEndDate() {
+<span class="fc" id="L260">		return endDate;</span>
+	}
+
+
+	/**
+	 * Sets the end date.
+	 *
+	 * @param endDate
+	 *            the new end date
+	 */
+	public void setEndDate(LocalDate endDate) {
+<span class="fc" id="L271">		this.endDate = endDate;</span>
+<span class="fc" id="L272">	}</span>
+
+
+	/**
+	 * Gets the parent task.
+	 *
+	 * @return the parent task
+	 */
+	public ParentTask getParentTask() {
+<span class="fc" id="L281">		return parentTask;</span>
+	}
+
+
+	/**
+	 * Sets the parent task.
+	 *
+	 * @param parentTask
+	 *            the new parent task
+	 */
+	public void setParentTask(ParentTask parentTask) {
+<span class="fc" id="L292">		this.parentTask = parentTask;</span>
+<span class="fc" id="L293">	}</span>
+
+
+	/**
+	 * To string.
+	 *
+	 * @return the string
+	 */
+	@Override
+	public String toString() {
+<span class="fc" id="L303">		return &quot;Task [taskId=&quot; + taskId + &quot;, task=&quot; + task + &quot;, priority=&quot; + priority + &quot;, startDate=&quot; + startDate</span>
+				+ &quot;, endDate=&quot; + endDate + &quot;, parentTask=&quot; + parentTask + &quot;, project=&quot; + project + &quot;, status=&quot; + status
+				+&quot;,user=&quot;+ user +&quot;]&quot;;
+	}
+	
+	
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

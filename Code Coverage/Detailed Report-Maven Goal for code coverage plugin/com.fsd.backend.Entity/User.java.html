@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>User.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">backend</a> &gt; <a href="index.source.html" class="el_package">com.fsd.backend.Entity</a> &gt; <span class="el_source">User.java</span></div><h1>User.java</h1><pre class="source lang-java linenums">package com.fsd.backend.Entity;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+
+// TODO: Auto-generated Javadoc
+/**
+ * The Class User.
+ */
+/**
+ * @author paiprasadm
+ *
+ */
+@Entity
+public class User implements Serializable {
+	
+	/** The user id. */
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@NotNull
+	private long userId;
+
+	/** The first name. */
+	@NotNull
+	private String firstName;
+	
+	/** The last name. */
+	@NotNull
+	private String lastName;
+	
+	/** The employee id. */
+	@NotNull
+	private String employeeId;
+		
+	/** The task. */
+<span class="fc" id="L46">	@OneToMany</span>
+	@JoinTable(name=&quot;TASK_ID&quot;,joinColumns=@JoinColumn(name=&quot;USER_ID&quot;),
+	           inverseJoinColumns = @JoinColumn(name=&quot;TASK_ID&quot;))
+	private List&lt;Task&gt; task = new ArrayList();
+
+	/** The project. */
+<span class="fc" id="L52">	@OneToMany</span>
+	@JoinTable(name=&quot;PROJECT_ID&quot;,joinColumns=@JoinColumn(name=&quot;USER_ID&quot;),
+	           inverseJoinColumns = @JoinColumn(name=&quot;PROJECT_ID&quot;))
+	private List&lt;Project&gt; project = new ArrayList();
+
+	/**
+	 * Instantiates a new user.
+	 */
+<span class="fc" id="L60">	public User() {</span>
+<span class="fc" id="L61">	}</span>
+
+	/**
+	 * Instantiates a new user.
+	 *
+	 * @param userId the user id
+	 * @param firstName the first name
+	 * @param lastName the last name
+	 * @param employeeId the employee id
+	 * @param task the task
+	 * @param project the project
+	 */
+	public User(@NotNull long userId, @NotNull String firstName, @NotNull String lastName, @NotNull String employeeId,
+			List&lt;Task&gt; task, List&lt;Project&gt; project) {
+<span class="fc" id="L75">		super();</span>
+<span class="fc" id="L76">		this.userId = userId;</span>
+<span class="fc" id="L77">		this.firstName = firstName;</span>
+<span class="fc" id="L78">		this.lastName = lastName;</span>
+<span class="fc" id="L79">		this.employeeId = employeeId;</span>
+<span class="fc" id="L80">		this.task = task;</span>
+<span class="fc" id="L81">		this.project = project;</span>
+<span class="fc" id="L82">	}</span>
+
+	/**
+	 * Gets the user id.
+	 *
+	 * @return the user id
+	 */
+	public long getUserId() {
+<span class="fc" id="L90">		return userId;</span>
+	}
+
+	/**
+	 * Sets the user id.
+	 *
+	 * @param userId the new user id
+	 */
+	public void setUserId(long userId) {
+<span class="fc" id="L99">		this.userId = userId;</span>
+<span class="fc" id="L100">	}</span>
+
+	/**
+	 * Gets the first name.
+	 *
+	 * @return the first name
+	 */
+	public String getFirstName() {
+<span class="fc" id="L108">		return firstName;</span>
+	}
+
+	/**
+	 * Sets the first name.
+	 *
+	 * @param firstName the new first name
+	 */
+	public void setFirstName(String firstName) {
+<span class="fc" id="L117">		this.firstName = firstName;</span>
+<span class="fc" id="L118">	}</span>
+
+	/**
+	 * Gets the last name.
+	 *
+	 * @return the last name
+	 */
+	public String getLastName() {
+<span class="fc" id="L126">		return lastName;</span>
+	}
+
+	/**
+	 * Sets the last name.
+	 *
+	 * @param lastName the new last name
+	 */
+	public void setLastName(String lastName) {
+<span class="fc" id="L135">		this.lastName = lastName;</span>
+<span class="fc" id="L136">	}</span>
+
+	/**
+	 * Gets the employee id.
+	 *
+	 * @return the employee id
+	 */
+	public String getEmployeeId() {
+<span class="fc" id="L144">		return employeeId;</span>
+	}
+
+	/**
+	 * Sets the employee id.
+	 *
+	 * @param employeeId the new employee id
+	 */
+	public void setEmployeeId(String employeeId) {
+<span class="fc" id="L153">		this.employeeId = employeeId;</span>
+<span class="fc" id="L154">	}</span>
+
+	/**
+	 * Gets the task.
+	 *
+	 * @return the task
+	 */
+	public List&lt;Task&gt; getTask() {
+<span class="fc" id="L162">		return task;</span>
+	}
+
+	/**
+	 * Sets the task.
+	 *
+	 * @param task the new task
+	 */
+	public void setTask(List&lt;Task&gt; task) {
+<span class="fc" id="L171">		this.task = task;</span>
+<span class="fc" id="L172">	}</span>
+
+	/**
+	 * Gets the project.
+	 *
+	 * @return the project
+	 */
+	public List&lt;Project&gt; getProject() {
+<span class="fc" id="L180">		return project;</span>
+	}
+
+	/**
+	 * Sets the project.
+	 *
+	 * @param project the new project
+	 */
+	public void setProject(List&lt;Project&gt; project) {
+<span class="fc" id="L189">		this.project = project;</span>
+<span class="fc" id="L190">	}</span>
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

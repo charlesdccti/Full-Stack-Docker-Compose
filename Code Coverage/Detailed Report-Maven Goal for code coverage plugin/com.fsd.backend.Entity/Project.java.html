@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Project.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">backend</a> &gt; <a href="index.source.html" class="el_package">com.fsd.backend.Entity</a> &gt; <span class="el_source">Project.java</span></div><h1>Project.java</h1><pre class="source lang-java linenums">package com.fsd.backend.Entity;
+
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Project.
+ **
+ * @author Prasad Pai M
+ *
+ */
+@Entity
+public class Project implements Serializable {
+	
+	/** The project id. */
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long projectId;
+	
+	/** The project. */
+	private String project;
+	
+	/** The start date. */
+	@DateTimeFormat(pattern = &quot;yyyy-MM-dd&quot; )
+	private LocalDate startDate;
+	
+	/** The end date. */
+	@DateTimeFormat(pattern = &quot;yyyy-MM-dd&quot; )
+	private LocalDate endDate;
+	
+	/** The priority. */
+	private int priority;
+
+	/** The task. */
+<span class="fc" id="L49">	@OneToMany</span>
+	@JoinTable(name=&quot;TASK_ID&quot;,joinColumns=@JoinColumn(name=&quot;PROJECT_ID&quot;),
+	           inverseJoinColumns = @JoinColumn(name=&quot;TASK_ID&quot;))
+	private List&lt;Task&gt; task = new ArrayList();
+	
+	/** The user. */
+	@OneToOne
+	private User user;
+	
+	/**
+	 * Instantiates a new project.
+	 */
+<span class="fc" id="L61">	public Project() {</span>
+<span class="fc" id="L62">	}</span>
+
+
+	/**
+	 * Instantiates a new project.
+	 *
+	 * @param projectId the project id
+	 * @param project the project
+	 * @param startDate the start date
+	 * @param endDate the end date
+	 * @param priority the priority
+	 * @param task the task
+	 * @param user the user
+	 */
+	public Project(long projectId, String project, LocalDate startDate, LocalDate endDate, int priority, List&lt;Task&gt; task,
+<span class="fc" id="L77">			User user) {</span>
+<span class="fc" id="L78">		this.projectId = projectId;</span>
+<span class="fc" id="L79">		this.project = project;</span>
+<span class="fc" id="L80">		this.startDate = startDate;</span>
+<span class="fc" id="L81">		this.endDate = endDate;</span>
+<span class="fc" id="L82">		this.priority = priority;</span>
+<span class="fc" id="L83">		this.task = task;</span>
+<span class="fc" id="L84">		this.user = user;</span>
+<span class="fc" id="L85">	}</span>
+
+
+	/**
+	 * Gets the project id.
+	 *
+	 * @return the project id
+	 */
+	public long getProjectId() {
+<span class="fc" id="L94">		return projectId;</span>
+	}
+
+
+
+	/**
+	 * Sets the project id.
+	 *
+	 * @param projectId the new project id
+	 */
+	public void setProjectId(long projectId) {
+<span class="fc" id="L105">		this.projectId = projectId;</span>
+<span class="fc" id="L106">	}</span>
+
+
+
+	/**
+	 * Gets the project.
+	 *
+	 * @return the project
+	 */
+	public String getProject() {
+<span class="fc" id="L116">		return project;</span>
+	}
+
+
+
+	/**
+	 * Sets the project.
+	 *
+	 * @param project the new project
+	 */
+	public void setProject(String project) {
+<span class="fc" id="L127">		this.project = project;</span>
+<span class="fc" id="L128">	}</span>
+
+
+
+	/**
+	 * Gets the start date.
+	 *
+	 * @return the start date
+	 */
+	public LocalDate getStartDate() {
+<span class="fc" id="L138">		return startDate;</span>
+	}
+
+
+
+	/**
+	 * Sets the start date.
+	 *
+	 * @param startDate the new start date
+	 */
+	public void setStartDate(LocalDate startDate) {
+<span class="fc" id="L149">		this.startDate = startDate;</span>
+<span class="fc" id="L150">	}</span>
+
+
+
+	/**
+	 * Gets the end date.
+	 *
+	 * @return the end date
+	 */
+	public LocalDate getEndDate() {
+<span class="fc" id="L160">		return endDate;</span>
+	}
+
+
+
+	/**
+	 * Sets the end date.
+	 *
+	 * @param endDate the new end date
+	 */
+	public void setEndDate(LocalDate endDate) {
+<span class="fc" id="L171">		this.endDate = endDate;</span>
+<span class="fc" id="L172">	}</span>
+
+
+
+	/**
+	 * Gets the priority.
+	 *
+	 * @return the priority
+	 */
+	public int getPriority() {
+<span class="fc" id="L182">		return priority;</span>
+	}
+
+
+
+	/**
+	 * Sets the priority.
+	 *
+	 * @param priority the new priority
+	 */
+	public void setPriority(int priority) {
+<span class="fc" id="L193">		this.priority = priority;</span>
+<span class="fc" id="L194">	}</span>
+
+
+
+	/**
+	 * Gets the task.
+	 *
+	 * @return the task
+	 */
+	public List&lt;Task&gt; getTask() {
+<span class="fc" id="L204">		return task;</span>
+	}
+
+
+
+	/**
+	 * Sets the task.
+	 *
+	 * @param task the new task
+	 */
+	public void setTask(List&lt;Task&gt; task) {
+<span class="fc" id="L215">		this.task = task;</span>
+<span class="fc" id="L216">	}</span>
+
+
+
+	/**
+	 * Gets the user.
+	 *
+	 * @return the user
+	 */
+	public User getUser() {
+<span class="fc" id="L226">		return user;</span>
+	}
+
+
+
+	/**
+	 * Sets the user.
+	 *
+	 * @param user the new user
+	 */
+	public void setUser(User user) {
+<span class="fc" id="L237">		this.user = user;</span>
+<span class="fc" id="L238">	}</span>
+
+
+
+	/**
+	 * To string.
+	 *
+	 * @return the string
+	 */
+	@Override
+	public String toString() {
+<span class="fc" id="L249">		return &quot;Project [projectId=&quot; + projectId + &quot;, project=&quot; + project + &quot;, startDate=&quot; + startDate + &quot;, endDate=&quot;</span>
+				+ endDate + &quot;, priority=&quot; + priority + &quot;, task=&quot; + task + &quot;,user=&quot;+ user+&quot;]&quot;;
+	}
+	
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

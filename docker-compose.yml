@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  database-connection:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=taskmanagerdb
+      - MYSQL_USER=fsduser
+      - MYSQL_PASSWORD=password
+    volumes:
+      - /data/database
+  backend:
+    image: backend-image
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    depends_on:
+      - database-connection
+    ports:
+      - 8080:8080
+    volumes:
+      - /data/backend
+  webapp:
+    image: webapp-image
+    build:
+      context: ./webapp
+      dockerfile: Dockerfile
+    ports:
+      - 4200:4200
+    volumes:
+      - /data/webapp
+

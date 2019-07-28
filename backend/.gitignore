@@ -1,0 +1,39 @@
+HELP.md
+!.mvn/wrapper/maven-wrapper.jar
+/target/classes
+/target/backend-0.0.1-SNAPSHOT
+/target/generated-sources
+/target/maven-archiver
+/target/maven-status
+/target/generated-test-sources
+/target/test-classes
+/target/backend-0.0.1-SNAPSHOT.war.original
+/target/surefire-reports
+/target/jacoco.exec
+/target/site
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+/build/
+
+### VS Code ###
+.vscode/

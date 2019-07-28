@@ -1,0 +1,12 @@
+
+ 
+   .delete-btn:hover, .delete-btn:focus,
+   .delete-btn:active:hover, .delete-btn:active:focus{
+    text-decoration: underline;
+   }
+      
+   nav {
+    margin: 0;
+    width: 100%;
+  
+  }

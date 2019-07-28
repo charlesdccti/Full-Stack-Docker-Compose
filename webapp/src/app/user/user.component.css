@@ -1,0 +1,57 @@
+.column {
+    box-sizing: border-box;
+  }
+  
+  .column {
+ 
+    padding: 5px;
+    margin:5px;
+    background:#b8c4d6;
+    color:white;
+    border:1px ;
+
+  }
+  
+  #sectionId{
+    text-align:left;
+    border: 1px solid black;
+    background:#F0FFF0;
+  }
+
+  .employeeId{
+   font-weight: bold;  
+   font-style: italic;
+   font-size: 28px;
+  }
+
+  .container{
+    width:100%;
+  }
+  
+  form{
+    padding-left: 30%;
+  }
+ 
+  #collapseButton{
+    width:100%;
+  }
+
+  #resetUserForm{
+    width:25%;
+  }
+
+  .hrTag{
+    border-top: 1px solid #d5d5d5;
+    width:100%;
+    margin-top:1.5rem;
+    margin-bottom:1.5rem;
+  }
+  
+  
+  #reduceColumn{
+    width:20%;
+  }
+
+
+
+ 

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ProjectController.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">backend</a> &gt; <a href="index.source.html" class="el_package">com.fsd.backend.Controller</a> &gt; <span class="el_source">ProjectController.java</span></div><h1>ProjectController.java</h1><pre class="source lang-java linenums">package com.fsd.backend.Controller;
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+
+import com.fsd.backend.Entity.Project;
+import com.fsd.backend.Entity.User;
+import com.fsd.backend.Service.ProjectService;
+import com.fsd.backend.Service.UserService;
+
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ProjectController.
+ */
+/**
+ * @author paiprasadm
+ *
+ */
+@RestController
+@CrossOrigin(origins = &quot;*&quot;)
+@RequestMapping(&quot;/taskManager/projectAction&quot;)
+<span class="fc" id="L32">public class ProjectController {</span>
+
+	/** The log. */
+<span class="fc" id="L35">	private final Logger log = LoggerFactory.getLogger(ProjectController.class);</span>
+	
+	/** The project service. */
+	@Autowired
+	private ProjectService projectService;
+	
+	/**
+	 * Adds the project.
+	 *
+	 * @param project the project
+	 * @return the project
+	 * @throws Exception the exception
+	 */
+	@PostMapping(&quot;/addProject&quot;)
+	public Project addProject(@RequestBody Project project) throws Exception
+	{
+		
+<span class="fc" id="L52">		log.debug(&quot;===========================================&quot;);</span>
+<span class="fc" id="L53">		log.debug(&quot;Inside Class Name: Project Controller &quot;);</span>
+<span class="fc" id="L54">		log.debug(&quot;Inside Method Name: addProject &quot;);</span>
+<span class="fc" id="L55">		log.debug(&quot;Project Details to be added:&quot; + project.toString());</span>
+<span class="fc" id="L56">		log.debug(&quot;===========================================&quot;);</span>
+<span class="fc" id="L57">        projectService.addProject(project);</span>
+<span class="fc" id="L58">		return project;</span>
+	}
+	
+
+	/**
+	 * Gets the all project.
+	 *
+	 * @return the all project
+	 * @throws Exception the exception
+	 */
+	@RequestMapping(&quot;/getAllProject&quot;)
+	public List&lt;Project&gt; getAllProject() throws Exception
+	{
+<span class="fc" id="L71">		List&lt;Project&gt; projectList = null;</span>
+	
+<span class="fc" id="L73">		log.debug(&quot;===========================================&quot;);</span>
+<span class="fc" id="L74">		log.debug(&quot;Inside Class Name: Project Controller &quot;);</span>
+<span class="fc" id="L75">		log.debug(&quot;Inside Method Name: getAllProject &quot;);</span>
+<span class="fc" id="L76">		log.debug(&quot;===========================================&quot;);</span>
+<span class="fc" id="L77">		projectList=projectService.getAllProject();</span>
+<span class="fc" id="L78">		return  projectList;</span>
+	}
+	
+	
+	/**
+	 * Delete project.
+	 *
+	 * @param project the project
+	 * @return the project
+	 * @throws Exception the exception
+	 */
+	@RequestMapping(&quot;/deleteProject&quot;)
+	public Project deleteProject(@RequestBody Project project) throws Exception
+	{
+<span class="fc" id="L92">		Project returned = null;</span>
+<span class="fc" id="L93">		log.debug(&quot;===========================================&quot;);</span>
+<span class="fc" id="L94">		log.debug(&quot;Inside Class Name: Project Controller &quot;);</span>
+<span class="fc" id="L95">		log.debug(&quot;Inside Method Name: deleteProject &quot;);</span>
+<span class="fc" id="L96">		log.debug(&quot;===========================================&quot;);</span>
+<span class="fc" id="L97">		project.setUser(null);</span>
+<span class="fc" id="L98">		returned=projectService.deleteProject(project);</span>
+<span class="fc" id="L99">		return  returned;</span>
+	}
+	
+	
+	/**
+	 * Gets the project by id.
+	 *
+	 * @param projectId the project id
+	 * @return the project by id
+	 * @throws Exception the exception
+	 */
+	@RequestMapping(&quot;/getProjectById/{projectId}&quot;)
+	public Project getProjectById(@PathVariable(name=&quot;projectId&quot;)String projectId ) throws Exception
+	{
+		
+<span class="fc" id="L114">		log.debug(&quot;===========================================&quot;);</span>
+<span class="fc" id="L115">		log.debug(&quot;Inside Class Name: Project Controller &quot;);</span>
+<span class="fc" id="L116">		log.debug(&quot;Inside Method Name: getProjectById &quot;);</span>
+<span class="fc" id="L117">		log.debug(&quot;Project Id Searched for: &quot; + projectId);</span>
+<span class="fc" id="L118">		log.debug(&quot;===========================================&quot;);</span>
+<span class="fc" id="L119">		Project project = null;</span>
+<span class="fc" id="L120">		project = projectService.findProjectById(Long.parseLong(projectId));</span>
+<span class="fc" id="L121">		return project;</span>
+		
+	}
+
+	/**
+	 * Update project.
+	 *
+	 * @param project the project
+	 * @return the project
+	 * @throws Exception the exception
+	 */
+	@PostMapping(&quot;/updateProject&quot;)
+	private Project updateProject(@RequestBody Project project) throws Exception{
+
+<span class="fc" id="L135">		log.debug(&quot;===========================================&quot;);</span>
+<span class="fc" id="L136">		log.debug(&quot;Inside Class Name: Project Controller &quot;);</span>
+<span class="fc" id="L137">		log.debug(&quot;Inside Method Name: updateProject &quot;);</span>
+<span class="fc" id="L138">		log.debug(&quot;===========================================&quot;);</span>
+<span class="fc" id="L139">		projectService.addProject(project);</span>
+<span class="fc" id="L140">		return  project;</span>
+	}
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>
